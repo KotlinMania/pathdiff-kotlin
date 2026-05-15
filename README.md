@@ -20,7 +20,7 @@ This is an **in-progress port**. The goal is feature parity with the upstream Ru
 
 ```kotlin
 dependencies {
-    implementation("io.github.kotlinmania:pathdiff-kotlin:0.1.0-SNAPSHOT")
+    implementation("io.github.kotlinmania:pathdiff-kotlin:0.1.0")
 }
 ```
 
@@ -47,7 +47,7 @@ See [AGENTS.md](AGENTS.md) and [CLAUDE.md](CLAUDE.md) for translator discipline,
 
 ### License
 
-This Kotlin port is distributed under the same MIT license as the upstream [`Manishearth/pathdiff`](https://github.com/Manishearth/pathdiff). See [LICENSE](LICENSE) (and any sibling `LICENSE-*` / `NOTICE` files mirrored from upstream) for the full text.
+This Kotlin port is distributed under the same dual-license model as the upstream [`Manishearth/pathdiff`](https://github.com/Manishearth/pathdiff): Apache-2.0 OR MIT. See [LICENSE-APACHE](LICENSE-APACHE), [LICENSE-MIT](LICENSE-MIT), and [LICENSE](LICENSE) for the full text.
 
 Original work copyrighted by the pathdiff authors.  
 Kotlin port: Copyright (c) 2026 Sydney Renee and The Solace Project.
