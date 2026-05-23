@@ -199,7 +199,11 @@ kotlin {
         binaries.framework { baseName = "Pathdiff"; xcf.add(this) }
     }
     iosSimulatorArm64 {
-        binaries.framework { baseName = "Pathdiff"; xcf.add(this) }
+        binaries.framework {
+            baseName = "Pathdiff"
+            isStatic = true
+            xcf.add(this)
+        }
     }
     iosX64 {
         binaries.framework { baseName = "Pathdiff"; xcf.add(this) }
