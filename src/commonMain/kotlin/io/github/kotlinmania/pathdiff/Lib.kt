@@ -1,4 +1,4 @@
-// port-lint: source src/lib.rs
+// port-lint: source lib.rs
 // Copyright 2012-2015 The Rust Project Developers. See the COPYRIGHT
 // file at the top-level directory of this distribution and at
 // http://rust-lang.org/COPYRIGHT.
@@ -9,8 +9,8 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-// Adapted from rustc's path_relative_from
-// https://github.com/rust-lang/rust/blob/e1d0de82cc40b666b88d4a6d2c9dcbc81d7ed27f/src/librustc_back/rpath.rs#L116-L158
+// Adapted from rustc's path relative routine.
+// Reference revision: e1d0de82cc40b666b88d4a6d2c9dcbc81d7ed27f.
 
 package io.github.kotlinmania.pathdiff
 
@@ -64,11 +64,11 @@ private fun <T> Iterator<T>.nextOrNull(): T? = if (hasNext()) next() else null
  * Construct a relative path from a provided base directory path to the provided path.
  *
  * ```
- * diffPaths("/foo/bar",      "/foo/bar/baz")  // "../"
+ * diffPaths("/foo/bar",      "/foo/bar/baz")  // ".."
  * diffPaths("/foo/bar/baz",  "/foo/bar")      // "baz"
  * diffPaths("/foo/bar/quux", "/foo/bar/baz")  // "../quux"
  * diffPaths("/foo/bar/baz",  "/foo/bar/quux") // "../baz"
- * diffPaths("/foo/bar",      "/foo/bar/quux") // "../"
+ * diffPaths("/foo/bar",      "/foo/bar/quux") // ".."
  *
  * diffPaths("/foo/bar",      "baz")           // "/foo/bar"
  * diffPaths("/foo/bar",      "/baz")          // "../foo/bar"
@@ -118,22 +118,17 @@ public fun diffPaths(path: String, base: String): String? {
     return comps.toPathString()
 }
 
-// The upstream `utf8_paths` submodule is gated by the Cargo `camino` feature
-// and exposes `diff_utf8_paths`, the camino::Utf8Path counterpart of
-// `diff_paths`. The crate root re-exports it via `pub use crate::utf8_paths::*;`
-// when the feature is enabled. Kotlin strings are always Unicode, so the
-// distinction collapses, but the function is preserved so that callers
-// translating from `pathdiff::diff_utf8_paths` find a direct counterpart.
-
 /**
  * Construct a relative UTF-8 path from a provided base directory path to the provided path.
  *
+ * Kotlin strings are Unicode, so this variant is available directly.
+ *
  * ```
- * diffUtf8Paths("/foo/bar",      "/foo/bar/baz")  // "../"
+ * diffUtf8Paths("/foo/bar",      "/foo/bar/baz")  // ".."
  * diffUtf8Paths("/foo/bar/baz",  "/foo/bar")      // "baz"
  * diffUtf8Paths("/foo/bar/quux", "/foo/bar/baz")  // "../quux"
  * diffUtf8Paths("/foo/bar/baz",  "/foo/bar/quux") // "../baz"
- * diffUtf8Paths("/foo/bar",      "/foo/bar/quux") // "../"
+ * diffUtf8Paths("/foo/bar",      "/foo/bar/quux") // ".."
  *
  * diffUtf8Paths("/foo/bar",      "baz")           // "/foo/bar"
  * diffUtf8Paths("/foo/bar",      "/baz")          // "../foo/bar"
