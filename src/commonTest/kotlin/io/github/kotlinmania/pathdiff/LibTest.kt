@@ -1,4 +1,4 @@
-// port-lint: source src/lib.rs
+// port-lint: source lib.rs
 package io.github.kotlinmania.pathdiff
 
 import kotlin.test.Test
@@ -14,6 +14,19 @@ class LibTest {
         assertDiffPaths(abs("foo"), abs("bar"), "../foo")
         assertDiffPaths(abs("foo"), "bar", abs("foo"))
         assertDiffPaths("foo", abs("bar"), null)
+        assertDiffPaths("foo", "bar", "../foo")
+    }
+
+    @Test
+    fun testDocumentationExamples() {
+        assertDiffPaths("/foo/bar", "/foo/bar/baz", "..")
+        assertDiffPaths("/foo/bar/baz", "/foo/bar", "baz")
+        assertDiffPaths("/foo/bar/quux", "/foo/bar/baz", "../quux")
+        assertDiffPaths("/foo/bar/baz", "/foo/bar/quux", "../baz")
+        assertDiffPaths("/foo/bar", "/foo/bar/quux", "..")
+
+        assertDiffPaths("/foo/bar", "baz", "/foo/bar")
+        assertDiffPaths("/foo/bar", "/baz", "../foo/bar")
         assertDiffPaths("foo", "bar", "../foo")
     }
 
