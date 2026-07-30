@@ -5,7 +5,6 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class LibTest {
-
     @Test
     fun testAbsolute() {
         // Absolute paths look different on Windows vs Unix.

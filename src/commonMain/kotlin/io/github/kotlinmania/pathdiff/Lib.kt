@@ -16,16 +16,22 @@ package io.github.kotlinmania.pathdiff
 
 private sealed class Component {
     object RootDir : Component()
-    object CurDir : Component()
-    object ParentDir : Component()
-    data class Normal(val name: String) : Component()
 
-    fun asString(): String = when (this) {
-        is RootDir -> "/"
-        is CurDir -> "."
-        is ParentDir -> ".."
-        is Normal -> name
-    }
+    object CurDir : Component()
+
+    object ParentDir : Component()
+
+    data class Normal(
+        val name: String,
+    ) : Component()
+
+    fun asString(): String =
+        when (this) {
+            is RootDir -> "/"
+            is CurDir -> "."
+            is ParentDir -> ".."
+            is Normal -> name
+        }
 }
 
 private fun String.isAbsolutePath(): Boolean = startsWith('/')
