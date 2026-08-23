@@ -5,9 +5,13 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class LibTest {
-    private fun abs(path: String): String = "/$path"
+    internal fun abs(path: String): String = "/$path"
 
-    private fun assertDiffPaths(path: String, base: String, expected: String?) {
+    internal fun assertDiffPaths(
+        path: String,
+        base: String,
+        expected: String?,
+    ) {
         assertEquals(expected, diffPaths(path, base))
         assertEquals(expected, diffUtf8Paths(path, base))
     }
