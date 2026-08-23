@@ -1,15 +1,19 @@
-// port-lint: source lib.rs
+// port-lint: tests lib.rs
 package io.github.kotlinmania.pathdiff
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class LibTest {
+    private fun abs(path: String): String = "/$path"
+
+    private fun assertDiffPaths(path: String, base: String, expected: String?) {
+        assertEquals(expected, diffPaths(path, base))
+        assertEquals(expected, diffUtf8Paths(path, base))
+    }
+
     @Test
     fun testAbsolute() {
-        // Absolute paths look different on Windows vs Unix.
-        fun abs(path: String): String = "/$path"
-
         assertDiffPaths(abs("foo"), abs("bar"), "../foo")
         assertDiffPaths(abs("foo"), "bar", abs("foo"))
         assertDiffPaths("foo", abs("bar"), null)
@@ -80,10 +84,5 @@ class LibTest {
         assertDiffPaths(".", "foo", "../.")
         assertDiffPaths("foo", ".", "foo")
         assertDiffPaths("/foo", "/.", "foo")
-    }
-
-    private fun assertDiffPaths(path: String, base: String, expected: String?) {
-        assertEquals(expected, diffPaths(path, base))
-        assertEquals(expected, diffUtf8Paths(path, base))
     }
 }
