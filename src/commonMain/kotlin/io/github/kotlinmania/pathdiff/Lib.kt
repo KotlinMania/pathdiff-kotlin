@@ -69,16 +69,18 @@ private fun <T> Iterator<T>.nextOrNull(): T? = if (hasNext()) next() else null
 /**
  * Construct a relative path from a provided base directory path to the provided path.
  *
- * ```
- * diffPaths("/foo/bar",      "/foo/bar/baz")  // ".."
+ * ```kotlin
+ * diffPaths("/foo/bar",      "/foo/bar/baz")  // "../"
  * diffPaths("/foo/bar/baz",  "/foo/bar")      // "baz"
  * diffPaths("/foo/bar/quux", "/foo/bar/baz")  // "../quux"
  * diffPaths("/foo/bar/baz",  "/foo/bar/quux") // "../baz"
- * diffPaths("/foo/bar",      "/foo/bar/quux") // ".."
+ * diffPaths("/foo/bar",      "/foo/bar/quux") // "../"
  *
  * diffPaths("/foo/bar",      "baz")           // "/foo/bar"
  * diffPaths("/foo/bar",      "/baz")          // "../foo/bar"
  * diffPaths("foo",           "bar")           // "../foo"
+ *
+ * diffPaths("/foo/bar/baz",  "/foo/bar")      // "baz"
  * ```
  */
 public fun diffPaths(path: String, base: String): String? {
@@ -127,18 +129,20 @@ public fun diffPaths(path: String, base: String): String? {
 /**
  * Construct a relative UTF-8 path from a provided base directory path to the provided path.
  *
- * Kotlin strings are Unicode, so this variant is available directly.
+ * Kotlin strings are Unicode UTF-8/UTF-16 strings, so this variant is available directly.
  *
- * ```
- * diffUtf8Paths("/foo/bar",      "/foo/bar/baz")  // ".."
+ * ```kotlin
+ * diffUtf8Paths("/foo/bar",      "/foo/bar/baz")  // "../"
  * diffUtf8Paths("/foo/bar/baz",  "/foo/bar")      // "baz"
  * diffUtf8Paths("/foo/bar/quux", "/foo/bar/baz")  // "../quux"
  * diffUtf8Paths("/foo/bar/baz",  "/foo/bar/quux") // "../baz"
- * diffUtf8Paths("/foo/bar",      "/foo/bar/quux") // ".."
+ * diffUtf8Paths("/foo/bar",      "/foo/bar/quux") // "../"
  *
  * diffUtf8Paths("/foo/bar",      "baz")           // "/foo/bar"
  * diffUtf8Paths("/foo/bar",      "/baz")          // "../foo/bar"
  * diffUtf8Paths("foo",           "bar")           // "../foo"
+ *
+ * diffUtf8Paths("/foo/bar/baz",  "/foo/bar")      // "baz"
  * ```
  */
 public fun diffUtf8Paths(path: String, base: String): String? {
