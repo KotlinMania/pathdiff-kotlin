@@ -25,6 +25,14 @@ class LibTest {
     }
 
     @Test
+    fun testWindowsDriveAbsolute() {
+        fun winAbs(path: String): String = "C:\\$path"
+        assertDiffPaths(winAbs("foo"), winAbs("bar"), "../foo")
+        assertDiffPaths(winAbs("foo"), "bar", winAbs("foo"))
+        assertDiffPaths("foo", winAbs("bar"), null)
+    }
+
+    @Test
     fun testDocumentationExamples() {
         assertDiffPaths("/foo/bar", "/foo/bar/baz", "..")
         assertDiffPaths("/foo/bar/baz", "/foo/bar", "baz")
