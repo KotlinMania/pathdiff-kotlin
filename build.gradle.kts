@@ -462,6 +462,29 @@ kotlin {
         }
     }
 
+    tasks.matching { it.name.contains("GenerateSPMPackage") }.configureEach {
+        doLast {
+            val spmPackageDir =
+                layout.buildDirectory
+                    .dir("SPMPackage")
+                    .get()
+                    .asFile
+            if (spmPackageDir.exists()) {
+                spmPackageDir.walkTopDown().filter { it.name == "Package.swift" }.forEach { pkgFile ->
+                    val content = pkgFile.readText()
+                    if (!content.contains("platforms:")) {
+                        pkgFile.writeText(
+                            content.replaceFirst(
+                                Regex("(name:\\s*\"[^\"]*\",)"),
+                                "$1\n    platforms: [.macOS(.v14)],",
+                            ),
+                        )
+                    }
+                }
+            }
+        }
+    }
+
     // Android KMP library. Block name is `android` — `androidLibrary` is deprecated in current KGP.
     android {
         namespace = projectNamespace
