@@ -4,17 +4,18 @@ package io.github.kotlinmania.pathdiff
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class LibTest {
-    internal fun abs(path: String): String = "/$path"
+internal fun abs(path: String): String = "/$path"
 
-    internal fun assertDiffPaths(
-        path: String,
-        base: String,
-        expected: String?,
-    ) {
-        assertEquals(expected, diffPaths(path, base))
-        assertEquals(expected, diffUtf8Paths(path, base))
-    }
+internal fun assertDiffPaths(
+    path: String,
+    base: String,
+    expected: String?,
+) {
+    assertEquals(expected, diffPaths(path, base))
+    assertEquals(expected, diffUtf8Paths(path, base))
+}
+
+class LibTest {
 
     @Test
     fun testAbsolute() {
