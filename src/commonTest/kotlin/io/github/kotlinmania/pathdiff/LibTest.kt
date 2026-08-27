@@ -16,7 +16,6 @@ internal fun assertDiffPaths(
 }
 
 class LibTest {
-
     @Test
     fun testAbsolute() {
         assertDiffPaths(abs("foo"), abs("bar"), "../foo")
