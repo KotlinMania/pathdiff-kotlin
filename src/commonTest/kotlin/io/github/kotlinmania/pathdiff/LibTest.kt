@@ -1,4 +1,4 @@
-// port-lint: tests pathdiff/src/lib.rs
+// port-lint: tests lib.rs
 package io.github.kotlinmania.pathdiff
 
 import kotlin.test.Test
