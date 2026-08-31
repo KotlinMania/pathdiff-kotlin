@@ -1,10 +1,12 @@
-// port-lint: tests pathdiff/src/lib.rs
+// port-lint: tests lib.rs
 package io.github.kotlinmania.pathdiff
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-internal fun abs(path: String): String = "/$path"
+internal fun abs(path: String): String {
+    return "/$path"
+}
 
 internal fun assertDiffPaths(
     path: String,

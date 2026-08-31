@@ -1,4 +1,4 @@
-// port-lint: source pathdiff/src/lib.rs
+// port-lint: source lib.rs
 // Copyright 2012-2015 The Rust Project Developers. See the COPYRIGHT
 // file at the top-level directory of this distribution and at
 // http://rust-lang.org/COPYRIGHT.
@@ -29,14 +29,15 @@ private sealed class Component {
         val name: String,
     ) : Component()
 
-    fun asString(): String =
-        when (this) {
+    fun asString(): String {
+        return when (this) {
             is Prefix -> prefix
             is RootDir -> "/"
             is CurDir -> "."
             is ParentDir -> ".."
             is Normal -> name
         }
+    }
 }
 
 private fun String.isAbsolutePath(): Boolean {
@@ -80,7 +81,9 @@ private fun List<Component>.toPathString(): String {
     return sb.toString()
 }
 
-private fun <T> Iterator<T>.nextOrNull(): T? = if (hasNext()) next() else null
+private fun <T> Iterator<T>.nextOrNull(): T? {
+    return if (hasNext()) next() else null
+}
 
 /**
  * Construct a relative path from a provided base directory path to the provided path.
