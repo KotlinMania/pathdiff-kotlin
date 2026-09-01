@@ -29,15 +29,14 @@ private sealed class Component {
         val name: String,
     ) : Component()
 
-    fun asString(): String {
-        return when (this) {
+    fun asString(): String =
+        when (this) {
             is Prefix -> prefix
             is RootDir -> "/"
             is CurDir -> "."
             is ParentDir -> ".."
             is Normal -> name
         }
-    }
 }
 
 private fun String.isAbsolutePath(): Boolean {
@@ -81,9 +80,7 @@ private fun List<Component>.toPathString(): String {
     return sb.toString()
 }
 
-private fun <T> Iterator<T>.nextOrNull(): T? {
-    return if (hasNext()) next() else null
-}
+private fun <T> Iterator<T>.nextOrNull(): T? = if (hasNext()) next() else null
 
 /**
  * Construct a relative path from a provided base directory path to the provided path.
