@@ -2,7 +2,7 @@
   "type": "port",
   "name": "pathdiff-kotlin",
   "source": {
-    "path": "tmp",
+    "path": "tmp/pathdiff/src",
     "lang": "rust"
   },
   "target": {
