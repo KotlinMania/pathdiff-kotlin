@@ -127,11 +127,19 @@ public fun diffPaths(path: String, base: String): String? {
         when {
             comps.isEmpty() && a == b -> {
             }
-            b == Component.CurDir -> comps.add(a)
-            b == Component.ParentDir -> return null
+
+            b == Component.CurDir -> {
+                comps.add(a)
+            }
+
+            b == Component.ParentDir -> {
+                return null
+            }
+
             else -> {
                 comps.add(Component.ParentDir)
-                for (unused in itb) {
+                while (itb.hasNext()) {
+                    itb.next()
                     comps.add(Component.ParentDir)
                 }
                 comps.add(a)
@@ -190,11 +198,19 @@ public fun diffUtf8Paths(path: String, base: String): String? {
         when {
             comps.isEmpty() && a == b -> {
             }
-            b == Component.CurDir -> comps.add(a)
-            b == Component.ParentDir -> return null
+
+            b == Component.CurDir -> {
+                comps.add(a)
+            }
+
+            b == Component.ParentDir -> {
+                return null
+            }
+
             else -> {
                 comps.add(Component.ParentDir)
-                for (unused in itb) {
+                while (itb.hasNext()) {
+                    itb.next()
                     comps.add(Component.ParentDir)
                 }
                 comps.add(a)
