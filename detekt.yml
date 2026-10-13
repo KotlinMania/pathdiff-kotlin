@@ -33,7 +33,7 @@ style:
   UnusedImport: { active: true }
   UnnecessaryInheritance: { active: true }
   UtilityClassWithPublicConstructor: { active: true }
-  DestructuringDeclarationWithTooManyEntries: { active: true, maxDestructuringEntries: 3 }
+  DestructuringDeclarationWithTooManyEntries: { active: false }
   ProtectedMemberInFinalClass: { active: false }
   MaxLineLength: { active: false }
   UseCheckOrError: { active: false }
@@ -48,6 +48,9 @@ style:
   UnusedPrivateProperty: { active: false }
   RedundantVisibilityModifier: { active: false }
   AbstractClassCanBeInterface: { active: false }
+  UseOrEmpty: { active: false }
+  UseRequireNotNull: { active: false }
+  UnusedPrivateFunction: { active: false }
 
 complexity:
   active: true
@@ -87,6 +90,8 @@ naming:
   MatchingDeclarationName: { active: false }
   ObjectPropertyNaming: { active: false }
   MemberNameEqualsClassName: { active: false }
+  NoNameShadowing: { active: false }
+  InvalidPackageDeclaration: { active: false }
 
 exceptions:
   active: true
