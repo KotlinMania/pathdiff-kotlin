@@ -1,4 +1,3 @@
-// port-lint: source lib.rs
 // Copyright 2012-2015 The Rust Project Developers. See the COPYRIGHT
 // file at the top-level directory of this distribution and at
 // http://rust-lang.org/COPYRIGHT.
@@ -14,7 +13,7 @@
 
 package io.github.kotlinmania.pathdiff
 
-private sealed class Component {
+internal sealed class Component {
     data class Prefix(
         val prefix: String,
     ) : Component()
@@ -39,13 +38,13 @@ private sealed class Component {
         }
 }
 
-private fun String.isAbsolutePath(): Boolean {
+internal fun String.isAbsolutePath(): Boolean {
     if (startsWith('/') || startsWith('\\')) return true
     if (length >= 3 && this[1] == ':' && (this[2] == '/' || this[2] == '\\')) return true
     return false
 }
 
-private fun String.pathComponents(): List<Component> {
+internal fun String.pathComponents(): List<Component> {
     if (isEmpty()) return emptyList()
     val result = mutableListOf<Component>()
     var rest: String = this
@@ -71,7 +70,7 @@ private fun String.pathComponents(): List<Component> {
     return result
 }
 
-private fun List<Component>.toPathString(): String {
+internal fun List<Component>.toPathString(): String {
     val sb = StringBuilder()
     for (c in this) {
         if (sb.isNotEmpty() && sb.last() != '/' && c !is Component.Prefix) sb.append('/')
@@ -80,7 +79,7 @@ private fun List<Component>.toPathString(): String {
     return sb.toString()
 }
 
-private fun <T> Iterator<T>.nextOrNull(): T? = if (hasNext()) next() else null
+internal fun <T> Iterator<T>.nextOrNull(): T? = if (hasNext()) next() else null
 
 /**
  * Construct a relative path from a provided base directory path to the provided path.
@@ -101,77 +100,6 @@ private fun <T> Iterator<T>.nextOrNull(): T? = if (hasNext()) next() else null
  * ```
  */
 public fun diffPaths(path: String, base: String): String? {
-    val pathAbs = path.isAbsolutePath()
-    val baseAbs = base.isAbsolutePath()
-
-    if (pathAbs != baseAbs) {
-        return if (pathAbs) path else null
-    }
-
-    val ita = path.pathComponents().iterator()
-    val itb = base.pathComponents().iterator()
-    val comps = mutableListOf<Component>()
-    loop@ while (true) {
-        val a = ita.nextOrNull()
-        val b = itb.nextOrNull()
-        if (a == null && b == null) break
-        if (b == null) {
-            comps.add(a!!)
-            for (rest in ita) comps.add(rest)
-            break
-        }
-        if (a == null) {
-            comps.add(Component.ParentDir)
-            continue
-        }
-        when {
-            comps.isEmpty() && a == b -> {
-            }
-
-            b == Component.CurDir -> {
-                comps.add(a)
-            }
-
-            b == Component.ParentDir -> {
-                return null
-            }
-
-            else -> {
-                comps.add(Component.ParentDir)
-                while (itb.hasNext()) {
-                    itb.next()
-                    comps.add(Component.ParentDir)
-                }
-                comps.add(a)
-                for (rest in ita) comps.add(rest)
-                break
-            }
-        }
-    }
-    return comps.toPathString()
-}
-
-/**
- * Construct a relative UTF-8 path from a provided base directory path to the provided path.
- *
- * Requires the `camino` feature in upstream Rust; provided directly in Kotlin.
- *
- * ```kotlin
- * assertEquals("..", diffUtf8Paths("/foo/bar", "/foo/bar/baz"))
- * assertEquals("baz", diffUtf8Paths("/foo/bar/baz", "/foo/bar"))
- * assertEquals("../quux", diffUtf8Paths("/foo/bar/quux", "/foo/bar/baz"))
- * assertEquals("../baz", diffUtf8Paths("/foo/bar/baz", "/foo/bar/quux"))
- * assertEquals("..", diffUtf8Paths("/foo/bar", "/foo/bar/quux"))
- *
- * assertEquals("/foo/bar", diffUtf8Paths("/foo/bar", "baz"))
- * assertEquals("../foo/bar", diffUtf8Paths("/foo/bar", "/baz"))
- * assertEquals("../foo", diffUtf8Paths("foo", "bar"))
- *
- * assertEquals("baz", diffUtf8Paths("/foo/bar/baz", "/foo/bar"))
- * assertEquals("baz", diffUtf8Paths("/foo/bar/baz", "/foo/bar"))
- * ```
- */
-public fun diffUtf8Paths(path: String, base: String): String? {
     val pathAbs = path.isAbsolutePath()
     val baseAbs = base.isAbsolutePath()
 

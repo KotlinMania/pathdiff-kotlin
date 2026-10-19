@@ -1,4 +1,3 @@
-// port-lint: tests lib.rs
 package io.github.kotlinmania.pathdiff
 
 import kotlin.test.Test
@@ -15,7 +14,7 @@ internal fun assertDiffPaths(
     assertEquals(expected, diffUtf8Paths(path, base))
 }
 
-class LibTest {
+class DiffPathsTest {
     @Test
     fun testAbsolute() {
         assertDiffPaths(abs("foo"), abs("bar"), "../foo")
