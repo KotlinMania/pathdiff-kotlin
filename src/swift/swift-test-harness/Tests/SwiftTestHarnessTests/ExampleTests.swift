@@ -1,21 +1,21 @@
 #if canImport(Testing)
 import Testing
-import Template
+import Pathdiff
 
-@Suite("Template Swift Export Tests")
-struct TemplateExportTests {
-    @Test("Template swift module imported cleanly")
+@Suite("Pathdiff Swift Export Tests")
+struct PathdiffExampleTests {
+    @Test("Pathdiff swift module imported cleanly")
     func testSwiftModuleLoads() throws {
-        #expect(Bool(true), "Template swift module imported cleanly")
+        #expect(diffPaths(path: "/foo/bar/baz", base: "/foo/bar") == "baz")
     }
 }
 #elseif canImport(XCTest)
 import XCTest
-import Template
+import Pathdiff
 
-final class TemplateExportTests: XCTestCase {
+final class PathdiffExampleTests: XCTestCase {
     func testSwiftModuleLoads() throws {
-        XCTAssertTrue(true, "Template swift module imported cleanly")
+        XCTAssertEqual(diffPaths(path: "/foo/bar/baz", base: "/foo/bar"), "baz")
     }
 }
 #endif
