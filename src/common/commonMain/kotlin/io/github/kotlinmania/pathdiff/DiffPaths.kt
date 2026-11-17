@@ -40,7 +40,7 @@ internal sealed class Component {
 
 internal fun String.isAbsolutePath(): Boolean {
     if (startsWith('/') || startsWith('\\')) return true
-    if (length >= 3 && this[1] == ':' && (this[2] == '/' || this[2] == '\\')) return true
+    if (length >= 3 && this[0].isLetter() && this[1] == ':' && (this[2] == '/' || this[2] == '\\')) return true
     return false
 }
 
@@ -73,7 +73,7 @@ internal fun String.pathComponents(): List<Component> {
 internal fun List<Component>.toPathString(): String {
     val sb = StringBuilder()
     for (c in this) {
-        if (sb.isNotEmpty() && sb.last() != '/' && c !is Component.Prefix) sb.append('/')
+        if (sb.isNotEmpty() && sb.last() != '/' && !(sb.endsWith(':') && c is Component.RootDir)) sb.append('/')
         sb.append(c.asString())
     }
     return sb.toString()

@@ -96,4 +96,12 @@ class DiffPathsTest {
         assertDiffPaths("foo", ".", "foo")
         assertDiffPaths("/foo", "/.", "foo")
     }
+
+    @Test
+    fun testBaseWithParentDirAndRoot() {
+        assertDiffPaths("foo", "../bar", null)
+        assertDiffPaths("foo/bar", "foo/../baz", null)
+        assertDiffPaths("/", "/foo", "..")
+        assertDiffPaths("/foo", "/", "foo")
+    }
 }

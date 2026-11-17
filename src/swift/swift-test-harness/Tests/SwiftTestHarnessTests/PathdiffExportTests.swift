@@ -25,4 +25,14 @@ struct PathdiffExportTests {
         let parentResult = diffUtf8Paths(path: "/foo/bar", base: "/foo/bar/baz")
         #expect(parentResult == "..")
     }
+
+    @Test("diffPaths and diffUtf8Paths return nil for incompatible bases")
+    func incompatibleBasesReturnNil() {
+        #expect(diffPaths(path: "foo", base: "/bar") == nil)
+        #expect(diffUtf8Paths(path: "foo", base: "/bar") == nil)
+        #expect(diffPaths(path: "foo", base: "../bar") == nil)
+        #expect(diffUtf8Paths(path: "foo", base: "../bar") == nil)
+        #expect(diffPaths(path: "/foo", base: "bar") == "/foo")
+        #expect(diffUtf8Paths(path: "/foo", base: "bar") == "/foo")
+    }
 }
