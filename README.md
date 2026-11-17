@@ -10,7 +10,7 @@ This is a Kotlin Multiplatform line-by-line transliteration port of [`Manisheart
 
 ### Porting status
 
-This is an **in-progress port**. The goal is feature parity with the upstream Rust crate while providing a native Kotlin Multiplatform API. Every Kotlin file carries a `// port-lint: source <path>` header naming its upstream Rust counterpart so the AST-distance tool can track provenance.
+This is a **completed port** of `Manishearth/pathdiff` to Kotlin Multiplatform (`diffPaths` and `diffUtf8Paths` in `io.github.kotlinmania.pathdiff`), matching upstream `src/lib.rs` across all 17 retained KMP targets with zero external runtime dependencies.
 
 ---
 
@@ -20,7 +20,7 @@ This is an **in-progress port**. The goal is feature parity with the upstream Ru
 
 ```kotlin
 dependencies {
-    implementation("io.github.kotlinmania:pathdiff-kotlin:0.1.0")
+    implementation("io.github.kotlinmania:pathdiff-kotlin:0.1.1")
 }
 ```
 
@@ -33,17 +33,16 @@ dependencies {
 
 ### Targets
 
-- macOS arm64
-- Linux x64
-- Windows mingw-x64
-- iOS arm64 / simulator-arm64 (Swift export + XCFramework)
-- JS (browser + Node.js)
-- Wasm-JS (browser + Node.js)
-- Android (API 24+)
+- JVM & Android (API 24+)
+- Android Native (`androidNativeArm64`, `androidNativeX64`)
+- Apple (`macosArm64`, `iosArm64`, `iosSimulatorArm64`, `tvosArm64`, `tvosSimulatorArm64`, `watchosDeviceArm64`, `watchosSimulatorArm64`) + Swift Export (`Pathdiff`)
+- Linux (`linuxX64`, `linuxArm64`)
+- Windows (`mingwX64`)
+- JS & Wasm (`js`, `wasmJs`, `wasmWasi`)
 
 ### Porting guidelines
 
-See [AGENTS.md](AGENTS.md) and [CLAUDE.md](CLAUDE.md) for translator discipline, port-lint header convention, and Rust → Kotlin idiom mapping.
+See [AGENTS.md](AGENTS.md) for translator discipline and Rust → Kotlin idiom mapping.
 
 ### License
 
